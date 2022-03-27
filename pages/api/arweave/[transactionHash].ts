@@ -21,11 +21,13 @@ export default async function (
       },
     )) as string;
     const txData = JSON.parse(txDataResp);
+
     console.log(txData);
 
     const txStatusResp = await arweave.transactions.getStatus(
       transactionHash as string,
     );
+    console.log(txStatusResp);
     const txStatus =
       txStatusResp.status === 200 &&
       txStatusResp.confirmed &&
@@ -34,6 +36,7 @@ export default async function (
         ? TransactionStatusE.CONFIRMED
         : TransactionStatusE.NOT_CONFIRMED;
 
+        console.log(txStatus);
     if (txStatus === TransactionStatusE.CONFIRMED) {
       const tx = await arweave.transactions.get(transactionHash as string);
 
