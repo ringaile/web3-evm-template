@@ -40,9 +40,10 @@ export const Web3Provider = (props: NFTContractProviderProps) => {
     if (provider) {
       // Request accounts, get signer, signers address & chainId
       // More information can be found: https://docs.ethers.io/v5/getting-started/#getting-started--connecting
-
-      const currentAddress = '';
-      const chainId = '';
+      await provider.send('eth_requestAccounts', []);
+      const signer = provider.getSigner();
+      const currentAddress = await signer.getAddress();
+      const chainId = await signer.getChainId();
 
       if (chainId != 80001) {
         alert('Please connect to the Polygon Mumbai testnet in MetaMask!')
