@@ -67,11 +67,12 @@ const CreateEntryForm = (): ReactElement => {
           const transactionId = response.data;
           console.log('transactionId: ', transactionId);
 
-          let rec = true;
-          if (rec) {
-            mutate(routes.api.arweave.search());
-            alert('Entry created successfully');
-          }
+          const signer = provider.getSigner();
+          const contractWithSigner = contract.connect(signer);
+
+          const resp = await contractWithSigner.createToken(transactionId);
+          const rec = await resp.wait();
+          alert('Entry created successfully');
         }
 
         router.push(routes.home);
