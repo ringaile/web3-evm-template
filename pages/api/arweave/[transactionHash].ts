@@ -26,6 +26,8 @@ export default async function (
       transactionHash as string,
     );
 
+    console.log(txStatusResp);
+
     const txStatus =
       txStatusResp.status === 200 &&
       txStatusResp.confirmed &&
