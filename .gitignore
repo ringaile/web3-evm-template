@@ -18,6 +18,7 @@
 # misc
 .DS_Store
 *.pem
+.vscode
 
 # debug
 npm-debug.log*
@@ -44,3 +45,6 @@ typechain
 #Hardhat files
 cache
 artifacts
+
+# Arweave wallet
+arweave-wallet.json
