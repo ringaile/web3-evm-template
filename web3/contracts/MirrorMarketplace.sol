@@ -22,4 +22,17 @@ contract MirrorMarketplace {
     }
 
     mapping (uint => Listing) private listings;
+
+    event PriceChanged(uint listingId, uint price);
+
+    modifier isOnSale(uint _listingId) {
+        require(listings[_listingId].status == ListingStatus.Listed, "Item not on sale");
+        _;
+    }
+
+    function changePrice(uint _listingId, uint _price) public isOnSale(_listingId) {
+        require(msg.sender == listings[_listingId].seller, "Not a seller");
+        listings[_listingId].price = _price;
+        emit PriceChanged(listingId, _price);
+    }
 }
