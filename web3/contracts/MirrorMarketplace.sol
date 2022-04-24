@@ -25,7 +25,7 @@ contract MirrorMarketplace {
 
     event Listed(uint listingId, address tokenAddr, address seller, uint tokenId, uint price);
 
-    function list(IERC721 _token, uint _tokenId, uint _price) public {
+    function list(IERC721 _token, uint _tokenId, uint _price) external {
         require(_price > 0, "Invalid price");
         listings[listingId] = Listing(_token, msg.sender, _tokenId, _price, block.timestamp, ListingStatus.Listed);
         listingId += 1;
