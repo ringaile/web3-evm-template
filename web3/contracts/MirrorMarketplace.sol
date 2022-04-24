@@ -27,6 +27,7 @@ contract MirrorMarketplace {
 
     function list(IERC721 _token, uint _tokenId, uint _price) external {
         require(_price > 0, "Invalid price");
+        require(_token.ownerOf(_tokenId) == msg.sender, "You are not the owner");
         listings[listingId] = Listing(_token, msg.sender, _tokenId, _price, block.timestamp, ListingStatus.Listed);
         listingId += 1;
         _token.safeTransferFrom(msg.sender, address(this), _tokenId);
