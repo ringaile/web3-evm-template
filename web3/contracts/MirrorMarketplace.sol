@@ -29,7 +29,7 @@ contract MirrorMarketplace {
         require(_price > 0, "Invalid price");
         listings[listingId] = Listing(_token, msg.sender, _tokenId, _price, block.timestamp, ListingStatus.Listed);
         listingId += 1;
-        _token.transferFrom(msg.sender, address(this), _tokenId);
+        _token.safeTransferFrom(msg.sender, address(this), _tokenId);
         emit Listed(listingId, address(_token), msg.sender, _tokenId, _price);
     }
 }
