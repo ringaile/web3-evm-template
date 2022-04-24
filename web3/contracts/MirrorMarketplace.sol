@@ -22,4 +22,9 @@ contract MirrorMarketplace {
     }
 
     mapping (uint => Listing) private listings;
+    mapping (address => uint[]) private nftsOwnedByUser;
+
+    function getnftsOwnedByUser(address _address)public view returns(uint [] memory){
+        return nftsOwnedByUser[_address];
+    }
 }
