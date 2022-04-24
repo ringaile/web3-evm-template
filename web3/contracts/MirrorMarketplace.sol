@@ -22,4 +22,19 @@ contract MirrorMarketplace {
     }
 
     mapping (uint => Listing) private listings;
+
+    event Unlisted(uint listingId, address tokenAddr, address seller, uint tokenId);
+
+    modifier isOnSale(uint _listingId) {
+         require(listings[_listingId].status == ListingStatus.Listed, "Item not on sale");
+         _;
+    }
+
+    function unlist(uint _listingId) external isOnSale(_listingId) {
+        require(msg.sender == listings[_listingId].seller, "Not a seller");
+        Listing memory listing = listings[_listingId];
+        listings[_listingId].status = ListingStatus.Cancelled;
+        listing.token.transferFrom(address(this), listing.seller, listing.tokenId);
+        emit Unlisted(_listingId, address(listing.token), listing.seller, listing.tokenId);
+    }
 }
