@@ -30,7 +30,7 @@ contract MirrorMarketplace {
         _;
     }
 
-    function changePrice(uint _listingId, uint _price) public isOnSale(_listingId) {
+    function changePrice(uint _listingId, uint _price) external isOnSale(_listingId) {
         require(msg.sender == listings[_listingId].seller, "Not a seller");
         listings[_listingId].price = _price;
         emit PriceChanged(listingId, _price);
