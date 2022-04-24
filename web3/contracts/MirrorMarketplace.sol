@@ -30,7 +30,7 @@ contract MirrorMarketplace {
          _;
     }
 
-    function unlist(uint _listingId) public isOnSale(_listingId) {
+    function unlist(uint _listingId) external isOnSale(_listingId) {
         require(msg.sender == listings[_listingId].seller, "Not a seller");
         Listing memory listing = listings[_listingId];
         listings[_listingId].status = ListingStatus.Cancelled;
