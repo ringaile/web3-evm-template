@@ -22,4 +22,13 @@ contract MirrorMarketplace {
     }
 
     mapping (uint => Listing) private listings;
+
+    event Listed(uint listingId, address tokenAddr, address seller, uint tokenId, uint price);
+
+    function list(IERC721 _token, uint _tokenId, uint _price) public {
+        require(_price > 0, "Invalid price");
+        listings[listingId] = Listing(_token, msg.sender, _tokenId, _price, block.timestamp, ListingStatus.Listed);
+        _token.transferFrom(msg.sender, address(this), _tokenId);
+        emit Listed(listingId, address(_token), msg.sender, _tokenId, _price);
+    }
 }
